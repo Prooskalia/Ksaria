@@ -3,6 +3,8 @@
 
     var constructor = function (application) {
         this.application = application;
+        this.hitTest = new application.graphics.Vector3();
+        this.raycaster = new application.graphics.Raycaster();
     };
 
     // ReSharper disable once InconsistentNaming
@@ -12,22 +14,39 @@
 
 
     prototype.onMouseDown = function (e) {
-        var button = e.button;
+        this.application.logger.log('Click' + e.button);
+        e.preventDefault();
 
-        this.application.logger.log('Click' + button);
+        if (e.button == 0) {
+            var target = this.application.target;
+        
+            if (target.clientWidth && target.clientHeight) {
+                var camera = this.application.camera;
+                var mouse = this.hitTest;
+                var raycaster = this.raycaster;
+                var world = this.application.world;
 
-        //var position = this._position;
+                mouse.x = (e.clientX / target.clientWidth) * 2 - 1;
+                mouse.y = -(e.clientY / target.clientHeight) * 2 + 1;
 
-        //position.x = (e.clientX / this._domElement.clientWidth) * 2 - 1;
-        //position.y = -(e.clientY / this._domElement.clientHeight) * 2 + 1;
+                raycaster.setFromCamera(mouse, camera);
 
-        //this._raycaster.setFromCamera(position, camera);
+                var intersects = raycaster.intersectObjects(world.entities);
 
-        //var intersects = this._raycaster.intersectObjects(objects);
+                if (intersects.length > 0) {
+                    var hit = intersects[0];
+
+                    if (hit && hit.object)
+                    {
+                        this.application.logger.log('Hit ' + (hit.object.name || 'Unknown'));
+                    }
+                }
+            }
+        }
     };
 
 
-    prototype.onMouseMove = function (e) {
-        this.application.logger.log('Move: ' + e.clientX + ', ' + e.clientY);
+    prototype.onMouseMove = function () {
+        // TODO - remove: this.application.logger.log('Move: ' + e.clientX + ', ' + e.clientY);
     };
 })(window.Container);

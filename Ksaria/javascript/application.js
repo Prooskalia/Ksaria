@@ -15,6 +15,8 @@
         this.renderer = new factory.CreateRenderer();
         this.scene = new factory.CreateScene();
         this.world = new factory.CreateWorld();
+
+        this.target = this.renderer.domElement;
     };
 
     // ReSharper disable once InconsistentNaming
@@ -27,7 +29,7 @@
             this._log('Application is already running.');
         } else {
             this._isRunning = true;
-            document.body.appendChild(this.renderer.domElement);
+            document.body.appendChild(this.target);
 
             var application = this;
 
@@ -59,7 +61,7 @@
 
             resize();
             application.world.load(this);
-            render(this);
+            render();
         }
     };
 })(window.Container);

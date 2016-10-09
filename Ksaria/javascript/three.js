@@ -9,7 +9,9 @@
         MeshLambertMaterial: graphics.MeshLambertMaterial,
         MeshPhongMaterial: graphics.MeshPhongMaterial,
         PlaneGeometry: graphics.PlaneGeometry,
-        PointLight: graphics.PointLight
+        PointLight: graphics.PointLight,
+        Raycaster: graphics.Raycaster,
+        Vector3: graphics.Vector3
     };
 
     container.prototype.CreateCamera = function (settings) {
