@@ -4,6 +4,7 @@
     container.prototype.graphics = {
         AmbientLight: graphics.AmbientLight,
         BoxGeometry: graphics.BoxGeometry,
+        ImageUtils: graphics.ImageUtils,
         Mesh: graphics.Mesh,
         MeshBasicMaterial: graphics.MeshBasicMaterial,
         MeshLambertMaterial: graphics.MeshLambertMaterial,

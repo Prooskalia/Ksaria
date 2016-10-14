@@ -2,21 +2,30 @@
     "use strict";
 
     var constructor = function (factory) {
-        this._isRunning = false;
+        this.isRunning = false;
 
+        this.assert = function (condition, message) { if (!condition) { throw message; } };
+        this.console = document.getElementById('console');
+        
+        this.assert(!factory.application, "factory: redefinition of application");
+        this.assert(factory.graphics, "graphics: not defined");
+        
+        factory.application = this;
         this.graphics = factory.graphics;
-        this.logger = console;
+        this.display = function (message) { this.console.innerText = message; };
+        this.log = function (message) { console.log(message); };
+       
         this.settings = new factory.CreateSettings();
-
         this.avatar = new factory.CreateAvatar();
         this.camera = factory.CreateCamera(this.settings);
         this.keyboard = new factory.CreateKeyboard();
         this.mouse = new factory.CreateMouse(this);
         this.renderer = new factory.CreateRenderer();
         this.scene = new factory.CreateScene();
-        this.world = new factory.CreateWorld();
+        this.world = new factory.CreateWorld(this);
 
-        this.target = this.renderer.domElement;
+        this.canvas = this.renderer.domElement;
+        this.hitTest = new factory.CreateHitTest(this);
     };
 
     // ReSharper disable once InconsistentNaming
@@ -25,11 +34,11 @@
     var prototype = constructor.prototype;
 
     prototype.run = function () {
-        if (this._isRunning) {
+        if (this.isRunning) {
             this._log('Application is already running.');
         } else {
-            this._isRunning = true;
-            document.body.appendChild(this.target);
+            this.isRunning = true;
+            document.body.appendChild(this.canvas);
 
             var application = this;
 
@@ -43,7 +52,7 @@
             };
 
             var render = function () {
-                if (application._isRunning) {
+                if (application.isRunning) {
                     requestAnimationFrame(render);
                     application.world.update(application);
                     application.avatar.update(application);

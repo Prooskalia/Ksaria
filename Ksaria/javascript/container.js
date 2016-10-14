@@ -7,8 +7,6 @@
 
 
     window.Container.runApplication = function () {
-        var application = (new window.Container()).CreateApplication();
-        
-        application.run();
+        (new window.Container()).CreateApplication().run();
     };
 })();
