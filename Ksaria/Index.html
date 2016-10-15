@@ -21,7 +21,7 @@
             font-size: 12px;
             left: 10px;
             padding: 3px;
-            position: relative;
+            position: absolute;
             overflow: hidden;
             top: 10px;
             height: 50px;
@@ -30,6 +30,7 @@
         }
     </style>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
 
     <!-- THE CONTAINER SCRIPT MUST BE FIRST OF THE LOCAL SCRIPTS -->
@@ -44,10 +45,10 @@
     <script src="javascript/world.js"></script>
 </head>
 <body>
-    <div id="console">Hello</div>
+    <div id="console"></div>
 
     <script type="text/javascript">
-        window.Container.runApplication();
+        jQuery().ready(function() { window.Container.runApplication(); });
     </script>
 </body>
 </html>

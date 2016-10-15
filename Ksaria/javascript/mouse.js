@@ -15,7 +15,7 @@
     prototype.onMouseDown = function (e) {
         e.preventDefault();
 
-        this.application.log('DEBUG: Click #' + e.button); // TODO: remove
+        this.application.log('DEBUG: Click #' + e.button + ' (' + e.clientX + ' ' + e.clientY + ') [' + this.application.canvas.clientWidth + ':' + this.application.canvas.clientHeight + ')'); // TODO: remove
 
         if (e.button === 0) {
             var canvas = this.application.canvas;
@@ -28,9 +28,7 @@
 
                 var target = this.application.hitTest.hit(mouse);
 
-                if (target) {
-                    this.application.world.hit(target);
-                }
+                this.application.world.hit(target);
             }
         }
     };

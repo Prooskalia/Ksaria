@@ -29,24 +29,29 @@
         var cube = new graphics.Mesh(cubeGeometry, cubeMaterial);
 
         cube.position.set(0, 0, -5);
-        cube.name = 'Cube';
+        cube.name = 'Crate';
         this.cube = cube;
         this.entities.push(cube);
         scene.add(cube);
 
         var spriteGeometry = new graphics.PlaneGeometry(3, 2);
-        var spriteMaterial = new graphics.MeshBasicMaterial({ color: 0x4000C0, side: graphics.FrontSide });
+        //var spriteMaterial = new graphics.MeshBasicMaterial({ color: 0x4000C0, side: graphics.FrontSide });
+        var spriteMaterial = new graphics.MeshPhongMaterial({ map: graphics.ImageUtils.loadTexture('images/wall_diffuse_1.jpg') });
         var sprite = new graphics.Mesh(spriteGeometry, spriteMaterial);
 
         sprite.position.set(-1.5, 0, -5);
-        sprite.name = 'Sprite';
+        sprite.name = 'Wall';
         this.entities.push(sprite);
         scene.add(sprite);
     };
 
 
-    prototype.hit = function(target) {
-        this.application.display('Hit: ' + (target.name || 'Unknown'));
+    prototype.hit = function (target) {
+        if (target) {
+            this.application.display('Hit: ' + (target.name || 'Unknown'));
+        } else {
+            this.application.display('');
+        }
     };
 
 

@@ -24,10 +24,12 @@
     };
 
     prototype.onKeyDown = function (e) {
+        e.preventDefault();
         this._keyStates[e.keyCode] = true;
     };
 
     prototype.onKeyUp = function (e) {
+        e.preventDefault();
         delete this._keyStates[e.keyCode];
     };
 
